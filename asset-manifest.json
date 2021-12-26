@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ema-john-simple/static/css/main.661b0258.css",
-    "main.js": "/ema-john-simple/static/js/main.34650fcc.js",
+    "main.css": "/ema-john-simple/static/css/main.a01a88a1.css",
+    "main.js": "/ema-john-simple/static/js/main.21ce4624.js",
     "static/js/787.8fa52e49.chunk.js": "/ema-john-simple/static/js/787.8fa52e49.chunk.js",
     "static/media/logo.png": "/ema-john-simple/static/media/logo.0dd9a5104bbc1da3e6ae.png",
     "index.html": "/ema-john-simple/index.html",
-    "main.661b0258.css.map": "/ema-john-simple/static/css/main.661b0258.css.map",
-    "main.34650fcc.js.map": "/ema-john-simple/static/js/main.34650fcc.js.map",
+    "main.a01a88a1.css.map": "/ema-john-simple/static/css/main.a01a88a1.css.map",
+    "main.21ce4624.js.map": "/ema-john-simple/static/js/main.21ce4624.js.map",
     "787.8fa52e49.chunk.js.map": "/ema-john-simple/static/js/787.8fa52e49.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.661b0258.css",
-    "static/js/main.34650fcc.js"
+    "static/css/main.a01a88a1.css",
+    "static/js/main.21ce4624.js"
   ]
 }
