@@ -1,0 +1,12 @@
+.shop-container{
+    display: flex;
+}
+.product-container{
+    width: 70%;
+    padding-right: 5px;
+    margin-left: 180px;
+    border-right: 1px solid #d3d3d3;
+}
+.cart-container{
+    padding: 5px;
+}
