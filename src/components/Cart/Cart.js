@@ -24,10 +24,12 @@ const Cart = (props) => {
             <h3>Order Summary</h3>
             <h4>Item Ordered: {cart.length}</h4>
             <table className='table'>
-                <tr><td>Items </td> <td> : $ {total.toFixed(2)}</td></tr>
-                <tr><td>Shipping & Handling </td> <td> : $ {shipping}</td></tr>
-                <tr><td>TAX & VAT </td> <td> : $ {tax.toFixed(1)}</td></tr>
-                <tr className='subTotal'><td >Order Total </td> <td> : $ {subTotal.toFixed(2)}</td></tr>
+                <tbody>
+                <tr><td>Items </td><td> : $ {total.toFixed(2)}</td></tr>
+                <tr><td>Shipping & Handling </td><td> : $ {shipping}</td></tr>
+                <tr><td>TAX & VAT </td><td> : $ {tax.toFixed(1)}</td></tr>
+                <tr className='subTotal'><td >Order Total </td><td> : $ {subTotal.toFixed(2)}</td></tr>
+                </tbody>
             </table>
             <button>Order Review</button>
         </div>
