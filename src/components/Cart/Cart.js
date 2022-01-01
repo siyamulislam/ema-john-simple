@@ -21,7 +21,7 @@ const Cart = (props) => {
 
     return (
         <div className='cart'>
-            <h3>Order Summary</h3>
+            <h3 className='text-success'>Order Summary</h3>
             <h4>Item Ordered: {cart.length}</h4>
             <table className='table'>
                 <tbody>
