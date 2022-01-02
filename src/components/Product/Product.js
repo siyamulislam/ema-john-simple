@@ -31,8 +31,8 @@ const Product = (props) => {
                         <h4>Feature</h4>
                         <ul>
                             {
-                                props.item.features.map(feature =>
-                                    <li key={feature[0]}>{feature.description} <strong>{feature.value}</strong> </li>)
+                                props.item.features.map( (feature, index) =>
+                                    <li key={index}>{feature.description} <strong>{feature.value}</strong> </li>)
                             }
                         </ul>
                     </div>
