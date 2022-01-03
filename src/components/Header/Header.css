@@ -3,6 +3,8 @@
   }
 .Header img{
     height: 80px;
+    display: block;
+    margin: auto;
 }
 .Header nav{
     background-color: black;

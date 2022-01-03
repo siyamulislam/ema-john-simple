@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Cart.css'
 
 const Cart = (props) => {
@@ -31,7 +32,7 @@ const Cart = (props) => {
                 <tr className='subTotal'><td >Order Total </td><td> : $ {subTotal.toFixed(2)}</td></tr>
                 </tbody>
             </table>
-            <button>Order Review</button>
+            <Link to={'/review'}><button>Order Review</button></Link>
         </div>
     );
 };
