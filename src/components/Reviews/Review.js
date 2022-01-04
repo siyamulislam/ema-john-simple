@@ -10,18 +10,17 @@ const Review = () => {
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKey = Object.keys(savedCart);
-        const productQuantity = Object.values(savedCart);
+
         const cartProduct = productKey.map(key => {
             const product = fakeData.find(pd => pd.key === key);
             product.quantity = savedCart[key];
             return product;
-        }
-        )
+        })
         setCart(cartProduct)
     }, [])
 
     const removeItem = (productKey => {
-        cart.map(product=> {
+        cart.map(product => {
             // if(productKey===product.key && product.quantity>1){
             //     console.log(product.quantity);
             //        product.quantity -=product.quantity
@@ -29,20 +28,20 @@ const Review = () => {
             // else if(productKey===product.key && product.quantity===1) {  
             // }
 
-            const newCart= cart.filter(pd=>pd.key!==productKey);
-                setCart(newCart);
-                removeFromDatabaseCart(productKey);
-        } )
+            const newCart = cart.filter(pd => pd.key !== productKey);
+            setCart(newCart);
+            removeFromDatabaseCart(productKey);
+        })
     })
     return (
         <div className='twin-Container'>
             <div className="product-container">
-            {
-                cart.map(cart => <ReviewItem removeItem={removeItem} key={cart.key} product={cart}> </ReviewItem>)
-            }
+                {
+                    cart.map(cart => <ReviewItem removeItem={removeItem} key={cart.key} product={cart}> </ReviewItem>)
+                }
             </div>
             <div className="cart-container">
-            <Cart cart={cart}></Cart>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );
