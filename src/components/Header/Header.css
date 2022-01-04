@@ -9,6 +9,8 @@
 .Header nav{
     background-color: black;
     line-height: 40px;
+    
+    width: 450%;
     font-size: 20px;
     padding-left: 30px;
 }

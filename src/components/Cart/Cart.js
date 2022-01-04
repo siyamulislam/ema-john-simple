@@ -8,7 +8,8 @@ const Cart = (props) => {
     let total = 0, shipping = 0,tax=0,subTotal=0;
     for (let i = 0; i < cart.length; i++) {
         const item = cart[i];
-        total += item.price;
+        total += item.price*item.quantity ;
+        
     }
     if (total < 50) shipping = 0;
     else if (total < 100) shipping = 10;
@@ -23,7 +24,7 @@ const Cart = (props) => {
     return (
         <div className='cart'>
             <h3 className='text-success'>Order Summary</h3>
-            <h4>Item Ordered: {cart.length}</h4>
+            <h4>Cart Item: {cart.length}</h4>
             <table className='table'>
                 <tbody>
                 <tr><td>Items </td><td> : $ {total.toFixed(2)}</td></tr>

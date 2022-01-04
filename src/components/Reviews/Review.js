@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react/cjs/react.development';
 import fakeData from '../../fakeData';
 import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Review = () => {
@@ -29,17 +30,20 @@ const Review = () => {
             // }
 
             const newCart= cart.filter(pd=>pd.key!==productKey);
-                setCart(newCart)
-                removeFromDatabaseCart(productKey)
-           
+                setCart(newCart);
+                removeFromDatabaseCart(productKey);
         } )
     })
     return (
-        <div>
-            <h2>Cart Item: {cart.length}</h2>
+        <div className='twin-Container'>
+            <div className="product-container">
             {
                 cart.map(cart => <ReviewItem removeItem={removeItem} key={cart.key} product={cart}> </ReviewItem>)
             }
+            </div>
+            <div className="cart-container">
+            <Cart cart={cart}></Cart>
+            </div>
         </div>
     );
 };

@@ -18,9 +18,10 @@ const ReviewItem = (props) => {
                 </div>
                 <div className="product-description">
                     <div className='des-left'>
-                        <p>${price}</p>
-                        {<p><small>Quantity {quantity} pics </small></p>}
-                        { }
+                        {<p><small>Quantity {quantity} pics </small></p>} 
+                        
+                        <p><small>${(price*quantity).toFixed(2)}</small></p>
+                        <br /> 
                         {<button onClick={() => { props.removeItem(key) }}>
                             <span><FontAwesomeIcon icon={faRemoveFormat} /></span> remove</button>}
                     </div>
