@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'; 
 import './Cart.css'
 
 const Cart = (props) => {
+    //console.log(props)
     const cart = props.cart;
     //const total=cart.reduce((total,item)=>total+item.price,0)
     let total = 0, shipping = 0, tax = 0, subTotal = 0;
@@ -32,7 +32,9 @@ const Cart = (props) => {
                     <tr className='subTotal'><td >Order Total </td><td> : $ {subTotal.toFixed(2)}</td></tr>
                 </tbody>
             </table>
-            <Link to={'/review'}><button>Order Review</button></Link>
+            {
+            props.children
+            }
         </div>
     );
 };

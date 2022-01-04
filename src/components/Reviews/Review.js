@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'; 
 import { useState } from 'react/cjs/react.development';
 import fakeData from '../../fakeData';
-import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import happyGIF from '../../images/giphy.gif'
 
 const Review = () => {
     const [cart, setCart] = useState([]);
+    const [orderPlaced, setOrderPlaced] = useState(false); 
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKey = Object.keys(savedCart);
@@ -33,7 +35,13 @@ const Review = () => {
             removeFromDatabaseCart(productKey);
         })
     })
+    const handlePlacedOrder=()=>{
+        setOrderPlaced(true);
+        setCart([]);
+        processOrder();
+    }
     return (
+       !orderPlaced?
         <div className='twin-Container'>
             <div className="product-container">
                 {
@@ -41,8 +49,15 @@ const Review = () => {
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+               <button  onClick={handlePlacedOrder}>Place Order</button>
+                </Cart>
             </div>
+        </div>
+        :
+        <div>
+                    <img src={happyGIF} alt="" />
+                    <h1>Order placed ! Stay Relaxed</h1>
         </div>
     );
 };
