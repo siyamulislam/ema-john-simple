@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'; 
-import { useState } from 'react/cjs/react.development';
+import React, { useEffect,useState } from 'react'; 
+
 import fakeData from '../../fakeData';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';

@@ -7,7 +7,8 @@ const Header = () => {
     return (
         <div className='Header'>
             <img src={logo} alt="" />
-            <nav><a href="/shop">Shop</a><a href="/review">Order Review</a> <a href="/inventory">Manage Inventory</a></nav>
+
+            <nav><a href="/shop">Shop</a><a href="/review">Order Review</a> <a href="/inventory">Manage Inventory</a> <span className='text-success  ml-4'><small>Welcome, Mr. Jacky Doa</small></span> <a href='/'><small>LogOut</small></a> </nav>
         </div>
     ); 
 };

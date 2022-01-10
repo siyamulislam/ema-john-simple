@@ -22,7 +22,7 @@ function App() {
       <Router>
         <Routes> 
             <Route  path="/"                           element={<Shop/>}                 />  
-            <Route  path="/shop"                       element={<Shop/>}                />  
+            <Route  path="/shop"                       element={<Shop/>}                 />  
             <Route  path="/review"                     element={<Review/>}               />  
             <Route  path="/inventory"                  element={<Inventory/>}            />
             <Route  path='/product/:productKey'        element={<ProductDetails/>}       />
