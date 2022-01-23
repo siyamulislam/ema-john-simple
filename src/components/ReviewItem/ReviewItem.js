@@ -4,7 +4,7 @@ import './ReviewItem.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faShoppingCart, faStar, faRemoveFormat } from '@fortawesome/free-solid-svg-icons'
 const ReviewItem = (props) => {
-    const { img, name, seller, price, stock, features, key,quantity } = props.product;
+    const { img, name, seller, price, stock, features, key, quantity } = props.product;
     return (
         <div className='product' >
             <div >
@@ -12,16 +12,14 @@ const ReviewItem = (props) => {
             </div>
             <div className='product_details'>
                 <div className='product-header'>
-
                     <h4 className="product-title"> {name}   </h4>
                     <p><small>by: {seller}</small></p>
                 </div>
                 <div className="product-description">
                     <div className='des-left'>
-                        {<p><small>Quantity {quantity} pics </small></p>} 
-                        
-                        <p><small>${(price*quantity).toFixed(2)}</small></p>
-                        <br /> 
+                        {<p><small>Quantity {quantity} pics </small></p>}
+                        <p><small>${(price * quantity).toFixed(2)}</small></p>
+                        <br />
                         {<button onClick={() => { props.removeItem(key) }}>
                             <span><FontAwesomeIcon icon={faRemoveFormat} /></span> remove</button>}
                     </div>
