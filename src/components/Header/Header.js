@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../App';
 import logo from '../../images/logo.png';
 import './Header.css'
@@ -10,8 +11,11 @@ const Header = () => {
     return (
         <div className='Header'>
             <img src={logo} alt="" />
-
-            <nav><a href="/shop">Shop</a><a href="/review">Order Review</a> <a href="/inventory">Manage Inventory</a> <span className='text-success  ml-4'><small>Welcome, {loggedInUser.name}</small></span> <a href='/'><small>LogOut</small></a> </nav>
+            <nav>
+                <Link to="/shop">Shop</Link>
+                <Link to="/review">Order Review</Link> 
+                <Link to="/inventory">Manage Inventory</Link> <span className='text-success  ml-4'><small>Welcome, {loggedInUser.name}</small></span> 
+                <Link to='/'><small>LogOut</small></Link> </nav>
         </div>
     ); 
 };
