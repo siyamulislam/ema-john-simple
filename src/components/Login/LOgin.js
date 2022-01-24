@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useContext, useState } from 'react';
 import { UserContext } from '../../App';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom'; 
 
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -14,7 +15,7 @@ const firebaseConfig = {
   messagingSenderId: "1070815504848",
   appId: "1:1070815504848:web:6658bdcf39c2fdba03b1d5"
 };
- initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
@@ -40,6 +41,7 @@ function Login() {
         console.log(error);
       });
   }
+
   const handelSignOut = () => {
     const signOutUser = {
       isSignedIn: false,
@@ -57,7 +59,7 @@ function Login() {
     });
   }
 
-  const handelBlur = (event) => { 
+  const handelBlur = (event) => {
     let isFormValid = true;
     if (event.target.name === 'name') {
     }
@@ -66,7 +68,7 @@ function Login() {
       isFormValid = isEmailValid;
     }
     if (event.target.name === 'password') {
-      const isPasswordValid = event.target.value.length >= 6; 
+      const isPasswordValid = event.target.value.length >= 6;
       isFormValid = isPasswordValid;
     }
     if (isFormValid) {
@@ -76,8 +78,12 @@ function Login() {
       setUser(newUserInfo)
     }
   }
-  const handelSubmit = (e) => {
 
+  const location = useLocation();
+  const  navigate = useNavigate();
+  // let { from } = location.state || { from: { pathname: '/' } };
+  let  from = location 
+  const handelSubmit = (e) => {
     console.log(user);
     if (user.newUser && user.name && user.email && user.password) {
       const auth = getAuth();
@@ -95,7 +101,7 @@ function Login() {
           }
           setUser(signIndUser);
           UpdateUserName(name);
-          console.log('sign in user of the current phase!', userCredential.user);      
+          console.log('sign in user of the current phase!', userCredential.user);
           setLoggedInUser(signIndUser);
         })
         .catch((error) => {
@@ -121,7 +127,13 @@ function Login() {
           }
           setUser(signIndUser);
           setLoggedInUser(signIndUser);
-          // ...
+          // navigate('/shipment');
+          <Navigate
+                to="/shipment"
+                replace state={{ path: location.pathname }}
+                
+                />
+
         })
         .catch((error) => {
           const newUser = { ...user };
