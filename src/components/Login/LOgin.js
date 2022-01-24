@@ -81,8 +81,7 @@ function Login() {
 
   const location = useLocation();
   const  navigate = useNavigate();
-  // let { from } = location.state || { from: { pathname: '/' } };
-  let  from = location 
+  const { state } = useLocation();
   const handelSubmit = (e) => {
     console.log(user);
     if (user.newUser && user.name && user.email && user.password) {
@@ -128,11 +127,8 @@ function Login() {
           setUser(signIndUser);
           setLoggedInUser(signIndUser);
           // navigate('/shipment');
-          <Navigate
-                to="/shipment"
-                replace state={{ path: location.pathname }}
-                
-                />
+          console.log(state);
+          navigate(state?.path || "/");
 
         })
         .catch((error) => {
@@ -155,14 +151,17 @@ function Login() {
       // An error occurred
       // ...
     });
-
   }
+  const tGoSP= () => {
+    console.log('trtrtrt');
+    navigate("/shipment");
+    }
   return (
     <div className="Login">
       {!user.isSignedIn ?
         <div>
           <button onClick={handelSignIn}>Continue With Google</button>
-          <button>SignIn With FaceBook</button>
+          <button onClick={tGoSP}> SignIn With FaceBook</button>
           <h3>Continue With Email</h3>
           <input type="checkbox" name="checkUser" id="checkUser" onChange={() => {
             //way 1

@@ -6,16 +6,15 @@ const RequireAuth = ({ children, ...rest }) => {
     const [loggedInUser] = useContext(UserContext);
     const auth = loggedInUser.email;
     const location = useLocation();
+    console.log(auth);
     
     return (
-        auth === true
-            ? children
+        // auth === 'true'?
+        auth ? children
             : <Navigate
                 to="/login"
                 replace state={{ path: location.pathname }}
-                
-                />
-          
+                />    
     );
 };
 
