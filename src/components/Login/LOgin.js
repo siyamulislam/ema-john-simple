@@ -1,63 +1,18 @@
 import './Login.css'
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useContext, useState } from 'react';
 import { UserContext } from '../../App';
-import { useLocation, Navigate, useNavigate } from 'react-router-dom'; 
+import { useLocation, useNavigate } from 'react-router-dom'; 
+import { CreateUserWithEmailAndPassword, handelGoogleSignIn, handelSignOut, initializeLoginFramework, SignInWithEmailAndPassword } from './loginManager';
 
+;
 
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyB5925_wiTKrn9-7UM2QFX1Gvdg9bQYDQ0",
-  authDomain: "ema-jhon-2022.firebaseapp.com",
-  projectId: "ema-jhon-2022",
-  storageBucket: "ema-jhon-2022.appspot.com",
-  messagingSenderId: "1070815504848",
-  appId: "1:1070815504848:web:6658bdcf39c2fdba03b1d5"
-};
-initializeApp(firebaseConfig);
-const auth = getAuth();
-const provider = new GoogleAuthProvider();
+initializeLoginFramework();
 
 function Login() {
   const [user, setUser] = useState({ isSignedIn: false, email: '', name: '', url: '', password: '', newUser: false });
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  const handelSignIn = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const user = result.user;
-        const { email, displayName, photoURL } = user
-        const signIndUser = {
-          isSignedIn: true,
-          name: displayName,
-          email: email,
-          url: photoURL,
-        }
-        setUser(signIndUser)
-        // ...
-      }).catch((error) => {
-        console.log(error);
-      });
-  }
-
-  const handelSignOut = () => {
-    const signOutUser = {
-      isSignedIn: false,
-      name: '',
-      email: '',
-      url: '',
-      error: '',
-      isSuccess: false
-    }
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      setUser(signOutUser)
-    }).catch((error) => {
-      // An error happened.
-    });
-  }
+  const  navigate = useNavigate();
+  const { state } = useLocation();
 
   const handelBlur = (event) => {
     let isFormValid = true;
@@ -79,107 +34,55 @@ function Login() {
     }
   }
 
-  const location = useLocation();
-  const  navigate = useNavigate();
-  const { state } = useLocation();
   const handelSubmit = (e) => {
     console.log(user);
     if (user.newUser && user.name && user.email && user.password) {
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, user.email, user.password)
-        .then((userCredential) => {
-          // Signed in 
-          const { email, name, password } = user;
-          const signIndUser = {
-            isSignedIn: true,
-            name: name,
-            email: email,
-            url: 'https://scontent.fdac24-2.fna.fbcdn.net/v/t1.6435-9/182163666_111029064475100_7524300687755693886_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_eui2=AeG2IL4ualgmM_4ANNDwQAN5XnRYagEb0lBedFhqARvSUCmTA0LZS751uzQakWd5SBrGXeTfPrJt3bJcmHBMZ28Q&_nc_ohc=-7P-_zMexzEAX-5G1qI&_nc_ht=scontent.fdac24-2.fna&oh=00_AT9_C0utKeNdD4tKGiAZe-xeBlCfJcgF9BhAl6saiN3rTQ&oe=620DC02A',
-            password: password,
-            isSuccess: true
-          }
-          setUser(signIndUser);
-          UpdateUserName(name);
-          console.log('sign in user of the current phase!', userCredential.user);
-          setLoggedInUser(signIndUser);
-        })
-        .catch((error) => {
-          const newUser = { ...user };
-          newUser.error = error.message;
-          setUser(newUser);
-        });
+     CreateUserWithEmailAndPassword(user.name,user.email,user.password)
+     .then(res=> {
+      setUser(res);
+      setLoggedInUser(res);
+      navigate(state?.path || "/");
+     }) 
+
     }
 
     if (!user.newUser && user.email && user.password) {
-      signInWithEmailAndPassword(auth, user.email, user.password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          const { email, password } = user;
-          const signIndUser = {
-            isSignedIn: true,
-            name: user.displayName,
-            email: email,
-            url: 'https://scontent.fdac24-2.fna.fbcdn.net/v/t1.6435-9/182163666_111029064475100_7524300687755693886_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_eui2=AeG2IL4ualgmM_4ANNDwQAN5XnRYagEb0lBedFhqARvSUCmTA0LZS751uzQakWd5SBrGXeTfPrJt3bJcmHBMZ28Q&_nc_ohc=-7P-_zMexzEAX-5G1qI&_nc_ht=scontent.fdac24-2.fna&oh=00_AT9_C0utKeNdD4tKGiAZe-xeBlCfJcgF9BhAl6saiN3rTQ&oe=620DC02A',
-            password: password,
-            isSuccess: true,
-          }
-          setUser(signIndUser);
-          setLoggedInUser(signIndUser);
-          // navigate('/shipment');
-          console.log(state);
-          navigate(state?.path || "/");
-
-        })
-        .catch((error) => {
-          const newUser = { ...user };
-          newUser.error = error.message;
-          setUser(newUser)
-        });
+      
+      SignInWithEmailAndPassword(user.email,user.password)
+      .then(res=> {
+        setUser(res);
+        setLoggedInUser(res);
+      navigate(state?.path || "/");
+       })
     }
     e.preventDefault();
   }
-
-  const UpdateUserName = name => {
-    updateProfile(auth.currentUser, {
-      displayName: name,
-      //  photoURL: "https://example.com/jane-q-user/profile.jpg"
-    }).then(() => {
-      // Profile updated!
-      // ...
-    }).catch((error) => {
-      // An error occurred
-      // ...
-    });
+  const googleSignIn=()=>{
+    handelGoogleSignIn()
+    .then(res=> {
+      setUser(res);
+      setLoggedInUser(res);
+      navigate(state?.path || "/");
+    })
   }
-  const tGoSP= () => {
-    console.log('trtrtrt');
-    navigate("/shipment");
-    }
+  const signOut=()=>{
+    handelSignOut()
+    .then(res=> {
+      setUser(res);
+      setLoggedInUser(res);
+    })
+  }
+
   return (
     <div className="Login">
       {!user.isSignedIn ?
         <div>
-          <button onClick={handelSignIn}>Continue With Google</button>
-          <button onClick={tGoSP}> SignIn With FaceBook</button>
+          <button onClick={googleSignIn}>Continue With Google</button>
           <h3>Continue With Email</h3>
           <input type="checkbox" name="checkUser" id="checkUser" onChange={() => {
-            //way 1
-            // let ckUser=true
-            // !user.newUser?  ckUser=true: ckUser=false
-            //  const newUserStatus = {newUser:ckUser}
-            // setUser(newUserStatus)
-
-            //way 2
-            // const newUserStatus = {newUser:!user.newUser?  true:false}
-            // setUser(newUserStatus)
-
-            //way 3
             setUser({ newUser: !user.newUser })
-
           }} />
           <label htmlFor="checkUser">New User?</label>
-
 
           <form onSubmit={handelSubmit}>
             {user.newUser && <div> <input type="text" name="name" id="name" placeholder='Name' onBlur={handelBlur} /><br /></div>}
@@ -192,18 +95,8 @@ function Login() {
         </div> :
         <div>
           {<p style={{ color: 'green' }}>User Created Successfully !</p>}
-          <button onClick={handelSignOut}>Log-Out</button>
+          <button onClick={signOut}>Log-Out</button>
         </div>}
-
-      {user.isSignedIn ?
-        <div style={{ border: '2px solid blue', padding: '20px', margin: '20px 500px' }}>
-          <h1>Welcome, {user.name}</h1>
-          <img src={user.url} alt="" width='50px' />
-          <h3>contact: {user.email}</h3>
-          <h3>password: {user.password}</h3>
-        </div> :
-        <div></div>
-      }
     </div>
   );
 }

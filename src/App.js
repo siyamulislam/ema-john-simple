@@ -19,15 +19,13 @@ const [loggedInUser,setLoggedInUser]=useState({});
   return (
     <UserContext.Provider value={[loggedInUser,setLoggedInUser]}>
       <div className="App">
-        <h2>Email: {loggedInUser.email}</h2> 
         <Router>
-          
         <Header></Header> 
           <Routes> 
               <Route  path="/"                          element={<Shop/>}                                             />  
               <Route  path="/shop"                      element={<Shop/>}                                             />  
               <Route  path="/review"                    element={<Review/>}                                           />  
-              <Route  path="/inventory"                 element={<Inventory/>}                                        />
+              <Route  path="/inventory"                 element={<RequireAuth><Inventory/></RequireAuth>}             />
               <Route  path="/shipment"                  element={<RequireAuth><Shipment/></RequireAuth> }             />
               <Route  path="/login"                     element={<Login/>}                                            />
               <Route  path='/product/:productKey'       element={<ProductDetails/>}                                   />
