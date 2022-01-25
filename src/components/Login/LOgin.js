@@ -39,20 +39,15 @@ function Login() {
     if (user.newUser && user.name && user.email && user.password) {
      CreateUserWithEmailAndPassword(user.name,user.email,user.password)
      .then(res=> {
-      setUser(res);
-      setLoggedInUser(res);
-      navigate(state?.path || "/");
+      handelResponse(res,true);
      }) 
-
     }
 
     if (!user.newUser && user.email && user.password) {
       
       SignInWithEmailAndPassword(user.email,user.password)
       .then(res=> {
-        setUser(res);
-        setLoggedInUser(res);
-      navigate(state?.path || "/");
+       handelResponse(res,true);
        })
     }
     e.preventDefault();
@@ -60,17 +55,21 @@ function Login() {
   const googleSignIn=()=>{
     handelGoogleSignIn()
     .then(res=> {
-      setUser(res);
-      setLoggedInUser(res);
-      navigate(state?.path || "/");
+      handelResponse(res,true);
     })
   }
   const signOut=()=>{
     handelSignOut()
     .then(res=> {
-      setUser(res);
-      setLoggedInUser(res);
+      handelResponse(res,false);
     })
+  }
+  const handelResponse=(res,redirect)=>{
+    setUser(res);
+    setLoggedInUser(res);
+    if(redirect){ 
+    navigate(state?.path || "/");
+    }
   }
 
   return (
