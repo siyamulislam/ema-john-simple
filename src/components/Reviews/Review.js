@@ -37,12 +37,7 @@ const Review = () => {
             removeFromDatabaseCart(productKey);
         })
     })
-    //copy me in shipment pageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-    // const handlePlacedOrder=()=>{
-    //     setOrderPlaced(true);
-    //     setCart([]);
-    //     processOrder();
-    // }
+    //copy 
     const handleProceedCheckout=()=>{
         navigate("/shipment");
     }
