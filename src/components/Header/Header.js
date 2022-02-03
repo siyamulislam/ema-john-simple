@@ -17,8 +17,14 @@ const Header = () => {
                 <Link to="/review">Order Review</Link> 
                 <Link to="/inventory">Manage Inventory</Link> 
                 <span className='text-success  ml-4'><small>{loggedInUser.name? 'Welcome, '+loggedInUser.name:''} </small></span> 
-               <Link  to='/'><small>{loggedInUser.name? "Sign Out":'Sign In'}</small></Link> 
-               <small> <button onClick={()=>setLoggedInUser({})}>Sign Out</button> </small>
+                {
+                    loggedInUser.name? 
+                    <small> <button onClick={()=>setLoggedInUser({})}>Sign Out</button> </small>
+                    // <Link  to='/shop'onClick={()=>setLoggedInUser({})}>Check In</Link> 
+                    :
+                    <Link  to='/login'>Sign In</Link> 
+                } 
+                
                {/* {loggedInUser.name?  <Link  onClick={handelSignOut}><small>Sign Out</small></Link>: <Link  to='/login'><small>Sign In</small></Link>} */}
 
             </nav>
