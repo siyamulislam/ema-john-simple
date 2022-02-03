@@ -10,7 +10,7 @@ initializeLoginFramework();
 
 function Login() {
   const [user, setUser] = useState({ isSignedIn: false, email: '', name: '', url: '', password: '', newUser: false });
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  const [ loggedInUser, setLoggedInUser] = useContext(UserContext);
   const  navigate = useNavigate();
   const { state } = useLocation();
 

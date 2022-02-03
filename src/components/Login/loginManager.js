@@ -1,5 +1,5 @@
 import * as  firebase from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,sendEmailVerification  } from "firebase/auth";
 import firebaseConfig from './firebaseConfig';
 
 
@@ -42,6 +42,7 @@ export const  CreateUserWithEmailAndPassword=async (name,email,password)=>{
             isSuccess: true
         };
         UpdateUserName(name);
+        sendEmailVerify();
         console.log('sign in user of the current phase!', userCredential.user);
         return signIndUser;
     } catch (error) {
@@ -106,4 +107,13 @@ const auth = getAuth();
     }).catch((error) => {
       // An error happened.
     });
+  }
+
+  const sendEmailVerify=  () => { 
+const auth = getAuth();
+sendEmailVerification(auth.currentUser)
+  .then(() => {
+    // Email verification sent!
+    // ...
+  });
   }
