@@ -2,7 +2,7 @@ import './Login.css'
 import { useContext, useState } from 'react';
 import { UserContext } from '../../App';
 import { useLocation, useNavigate } from 'react-router-dom'; 
-import { CreateUserWithEmailAndPassword, handelGoogleSignIn, handelSignOut, initializeLoginFramework, SignInWithEmailAndPassword } from './loginManager';
+import { CreateUserWithEmailAndPassword, handelGoogleSignIn, handelSignOut, initializeLoginFramework, sendResetEmailLink, SignInWithEmailAndPassword } from './loginManager';
 
 ;
 
@@ -87,7 +87,8 @@ function Login() {
             {user.newUser && <div> <input type="text" name="name" id="name" placeholder='Name' onBlur={handelBlur} /><br /></div>}
             <input type="text" name="email" id="email" placeholder='Email' autoComplete='username' required onBlur={handelBlur} /><br />
             <input type="password" name="password" id="password" placeholder='Password' autoComplete='current-password' required onBlur={handelBlur} /><br />
-            <input type="submit" value={user.newUser ? "Sign Up" : "Sign In"} />
+            <p onClick={()=>{sendResetEmailLink(user.email)}}> Reset Password?</p>
+            <input type="submit" value={user.newUser ? "Sign Up" : "Sign In"} /> 
           </form>
 
           <p style={{ color: 'red' }}>{user.error}</p>
