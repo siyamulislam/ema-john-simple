@@ -6,9 +6,17 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 const Shop = () => {
-    const first10 = fakeData.slice(0, 12);
-    const [products, setProducts] = useState(first10);
+    // const first10 = fakeData.slice(0, 12); 
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    useEffect(()=>{
+        fetch('http://localhost:5000/products',)
+        .then(res=>res.json())
+        .then(data=> {
+            const first10=data.slice(0, 12);
+            setProducts(first10)
+        })
+    },[])
     useEffect(() => {
         const oldSavedCart = getDatabaseCart();
         const oldProductKeys = Object.keys(oldSavedCart);

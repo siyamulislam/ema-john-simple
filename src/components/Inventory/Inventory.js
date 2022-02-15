@@ -7,7 +7,6 @@ const Inventory = () => {
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(fakeData)
-
         })
         .then(res => res.json())
         .then(result=>{
