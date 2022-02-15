@@ -5,9 +5,15 @@ const Inventory = () => {
     const handelAddProduct=()=>{
         fetch('http://localhost:5000/addProducts',{
             method:'POST',
-            headers:{'COntent_TYPE': 'application/json'},
-            body:JSON.stringify(fakeData[0])
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify(fakeData)
 
+        })
+        .then(res => res.json())
+        .then(result=>{
+           if(result){
+               console.log('Data added');
+           }
         })
     }
     return (
