@@ -21,13 +21,16 @@ const Shop = () => {
         const oldSavedCart = getDatabaseCart();
         const oldProductKeys = Object.keys(oldSavedCart);
         // const oldCart = oldProductKeys.map(oldPdKey => fakeData.find(pd => pd.key === oldPdKey))
+        // console.log(oldProductKeys,products);
+       if(products.length){
         const oldCart = oldProductKeys.map(oldPdKey => {
-            const oldProduct = fakeData.find(pd => pd.key === oldPdKey)
+            const oldProduct = products.find(pd => pd.key === oldPdKey)
             oldProduct.quantity = oldSavedCart[oldPdKey];
             return oldProduct;
         })
         setCart(oldCart)
-    }, [])
+       }
+    }, [products])
     //console.log(cart[0]);
 
     const handleAddProduct = (product) => {
