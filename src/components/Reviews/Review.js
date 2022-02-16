@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 
 // import fakeData from '../../fakeData';
 import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
@@ -9,19 +9,27 @@ import { useNavigate } from 'react-router-dom';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
-    const [orderPlaced, ] = useState(false); 
-    const  navigate = useNavigate();
+    const [orderPlaced,] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKey = Object.keys(savedCart);
 
-        fetch('http://localhost:5000/productsByKey',{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(productKey)
+        fetch('http://localhost:5000/productsByKey', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productKey)
         })
-        .then(res => res.json())
-        .then(data=>setCart(data))
+            .then(res => res.json())
+            .then(data => {
+                const productWithQuantity = productKey.map(key => {
+                    const product = data.find(product => (product.key === key));
+                    product.quantity = savedCart[key];
+                    return product;
+                })
+                // console.log(productWithQuantity);
+                setCart(productWithQuantity)
+            })
 
         // const cartProduct = productKey.map(key => {
         //     const product = fakeData.find(pd => pd.key === key);
@@ -46,28 +54,28 @@ const Review = () => {
         })
     })
     //copy 
-    const handleProceedCheckout=()=>{
+    const handleProceedCheckout = () => {
         navigate("/shipment");
     }
     return (
-       !orderPlaced?
-        <div className='twin-Container'>
-            <div className="product-container">
-                {
-                    cart.map(cart => <ReviewItem removeItem={removeItem} key={cart.key} product={cart}> </ReviewItem>)
-                }
+        !orderPlaced ?
+            <div className='twin-Container'>
+                <div className="product-container">
+                    {
+                        cart.map(cart => <ReviewItem removeItem={removeItem} key={cart.key} product={cart}> </ReviewItem>)
+                    }
+                </div>
+                <div className="cart-container">
+                    <Cart cart={cart}>
+                        <button onClick={handleProceedCheckout}>Proceed Checkout</button>
+                    </Cart>
+                </div>
             </div>
-            <div className="cart-container">
-                <Cart cart={cart}>
-               <button  onClick={handleProceedCheckout}>Proceed Checkout</button>
-                </Cart>
+            :
+            <div>
+                <img src={happyGIF} alt="" />
+                <h1>Order placed ! Stay Relaxed</h1>
             </div>
-        </div>
-        :
-        <div>
-                    <img src={happyGIF} alt="" />
-                    <h1>Order placed ! Stay Relaxed</h1>
-        </div>
     );
 };
 

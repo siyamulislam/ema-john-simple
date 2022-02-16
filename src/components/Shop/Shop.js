@@ -7,24 +7,31 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    useEffect(()=>{
+    useEffect(() => {
         fetch('http://localhost:5000/products',)
-        .then(res=>res.json())
-        .then(data=> {
-            const first10=data.slice(0, 12);
-            setProducts(first10)
-        })
-    },[])
+            .then(res => res.json())
+            .then(data => {
+                const first10 = data.slice(0, 12);
+                setProducts(first10)
+            })
+    }, [])
     useEffect(() => {
         const oldSavedCart = getDatabaseCart();
         const oldProductKeys = Object.keys(oldSavedCart);
-        fetch('http://localhost:5000/productsByKey',{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(oldProductKeys)
+        fetch('http://localhost:5000/productsByKey', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(oldProductKeys)
         })
-        .then(res => res.json())
-        .then(data=>setCart(data))
+            .then(res => res.json())
+            .then(data => { 
+                const productWithQuantity = oldProductKeys.map(key => {
+                    const product = data.find(product => (product.key === key));
+                    product.quantity = oldSavedCart[key];
+                    return product;
+                }) 
+                setCart(productWithQuantity)
+            })
     }, [])
     //console.log(cart[0]);
 
