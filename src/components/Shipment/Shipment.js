@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { getDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 import './Shipment.css'
 
 const Shipment = () => {
@@ -14,10 +14,21 @@ const Shipment = () => {
 
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const onSubmitForm = data => {
-
     const savedCart = getDatabaseCart();
     const orderDetails = { ...loggedInUser, products: savedCart, shipment: data ,orderTime:new Date()}
     console.log(orderDetails);
+    fetch('http://localhost:5000/addOrder',{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify(orderDetails)
+        })
+        .then(res => res.json())
+        .then(result=>{
+           if(result){
+             processOrder()
+               alert('Order Completed !');
+           }
+        })
   }
 
   return (
