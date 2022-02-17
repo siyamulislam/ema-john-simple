@@ -1,18 +1,14 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 import './Shipment.css'
 
 const Shipment = () => {
-  const navigate = useNavigate();
-  const handellg = () => {
-    navigate('/login');
-  }
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+   
+  const { register, handleSubmit,formState: { errors } } = useForm();
 
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  const [loggedInUser] = useContext(UserContext);
   const onSubmitForm = data => {
     const savedCart = getDatabaseCart();
     const orderDetails = { ...loggedInUser, products: savedCart, shipment: data ,orderTime:new Date()}

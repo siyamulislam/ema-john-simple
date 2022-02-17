@@ -1,14 +1,17 @@
 import React from 'react';
 import './Product.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faShoppingCart, faStar } from '@fortawesome/free-solid-svg-icons'
+import {  faShoppingCart, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 const Product = (props) => {
     //console.log(props);
     const { img, name, seller, price, stock, features, key } = props.item;
     return (
+        
         <div className='product' >
-            <div >
+            {img===undefined?<p>Loading...</p>:
+                        <>
+             <div >
                 <img src={img} alt="" />
             </div>
             <div className='product_details'>
@@ -42,6 +45,11 @@ const Product = (props) => {
                     </div>
                 </div>
             </div>
+            
+            </>
+            
+            }
+           
 
         </div>
     );
