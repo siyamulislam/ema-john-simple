@@ -8,7 +8,7 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/products',)
+        fetch('https://powerful-castle-25731.herokuapp.com/products',)
             .then(res => res.json())
             .then(data => {
                 const first10 = data.slice(0, 12);
@@ -18,7 +18,7 @@ const Shop = () => {
     useEffect(() => {
         const oldSavedCart = getDatabaseCart();
         const oldProductKeys = Object.keys(oldSavedCart);
-        fetch('http://localhost:5000/productsByKey', {
+        fetch('https://powerful-castle-25731.herokuapp.com/productsByKey', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(oldProductKeys)
