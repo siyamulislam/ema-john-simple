@@ -1,6 +1,8 @@
 import React from 'react';
 // import fakeData from '../../fakeData';
 const Inventory = () => {
+    
+    document.title=" Inventory"
     const handelAddProduct=()=>{
         console.log('need to implementation');
         // fetch('http://localhost:5000/addProducts',{

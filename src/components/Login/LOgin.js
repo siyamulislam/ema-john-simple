@@ -13,7 +13,7 @@ function Login() {
   const [ loggedInUser, setLoggedInUser] = useContext(UserContext);
   const  navigate = useNavigate();
   const { state } = useLocation();
-
+  document.title="Login"
   const handelBlur = (event) => {
     let isFormValid = true;
     if (event.target.name === 'name') {

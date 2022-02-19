@@ -6,7 +6,8 @@ import Product from '../Product/Product';
 const ProductDetails = () => {
     const { productKey } = useParams();
     const [product, setProduct] = useState({})
-    const [loading , setLoading]= useState(true)
+    const [loading , setLoading]= useState(true);
+    document.title="Product Details"
     useEffect(() => {
         fetch('https://powerful-castle-25731.herokuapp.com/product/' + productKey,)
             .then(res => res.json())

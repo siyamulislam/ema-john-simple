@@ -11,6 +11,7 @@ const Review = () => {
     const [cart, setCart] = useState([]);
     const [orderPlaced,] = useState(false);
     const navigate = useNavigate();
+    document.title="Order Review"
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKey = Object.keys(savedCart);

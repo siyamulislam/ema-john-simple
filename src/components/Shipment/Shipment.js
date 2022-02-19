@@ -5,26 +5,26 @@ import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 import './Shipment.css'
 
 const Shipment = () => {
-   
-  const { register, handleSubmit,formState: { errors } } = useForm();
 
-  const [loggedInUser] = useContext(UserContext);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  document.title = "Shipment"
+  const [loggedInUser,setLoggedInUser] = useContext(UserContext);
   const onSubmitForm = data => {
     const savedCart = getDatabaseCart();
-    const orderDetails = { ...loggedInUser, products: savedCart, shipment: data ,orderTime:new Date()}
+    const orderDetails = { ...loggedInUser, products: savedCart, shipment: data, orderTime: new Date() }
     console.log(orderDetails);
-    fetch('https://powerful-castle-25731.herokuapp.com/addOrder',{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(orderDetails)
-        })
-        .then(res => res.json())
-        .then(result=>{
-           if(result){
-             processOrder()
-               alert('Order Completed !');
-           }
-        })
+    fetch('https://powerful-castle-25731.herokuapp.com/addOrder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderDetails)
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result) {
+          processOrder()
+          alert('Order Completed !');
+        }
+      })
   }
 
   return (

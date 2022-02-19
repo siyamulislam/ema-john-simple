@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faShoppingCart, faStar, faRemoveFormat } from '@fortawesome/free-solid-svg-icons'
 const ReviewItem = (props) => {
     const { img, name, seller, price, stock, features, key, quantity } = props.product;
+    
     return (
         <div className='product' >
             <div >

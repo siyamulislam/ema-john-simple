@@ -8,6 +8,7 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    document.title="Shop More"
     useEffect(() => {
         fetch('https://powerful-castle-25731.herokuapp.com/products',)
             .then(res => res.json())
