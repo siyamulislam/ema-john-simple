@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
@@ -58,7 +59,7 @@ const Shop = () => {
         <div className='twin-Container'>
             <div className="product-container">
                 {
-                    products.length===0 && <p> Loading...</p>
+                    products.length===0 &&<CircularProgress  />
                 }
                 {
                     products.map(product =>
