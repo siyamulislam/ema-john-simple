@@ -1,4 +1,4 @@
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
@@ -8,7 +8,7 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    document.title="Shop More"
+    document.title = "Shop More"
     useEffect(() => {
         fetch('https://powerful-castle-25731.herokuapp.com/products',)
             .then(res => res.json())
@@ -26,12 +26,12 @@ const Shop = () => {
             body: JSON.stringify(oldProductKeys)
         })
             .then(res => res.json())
-            .then(data => { 
+            .then(data => {
                 const productWithQuantity = oldProductKeys.map(key => {
                     const product = data.find(product => (product.key === key));
                     product.quantity = oldSavedCart[key];
                     return product;
-                }) 
+                })
                 setCart(productWithQuantity)
             })
     }, [])
@@ -60,7 +60,17 @@ const Shop = () => {
         <div className='twin-Container'>
             <div className="product-container">
                 {
-                    products.length===0 &&<CircularProgress  />
+                    products.length === 0 &&
+
+                    <Stack sx={{ color: 'red' }} spacing={10} direction="column">
+                        <CircularProgress color="secondary" />
+                        <CircularProgress color="success" />
+                        <CircularProgress color="inherit" />
+                        <CircularProgress color="secondary" />
+                        <CircularProgress color="success" />
+                        <CircularProgress color="inherit" />
+                    </Stack>
+
                 }
                 {
                     products.map(product =>
