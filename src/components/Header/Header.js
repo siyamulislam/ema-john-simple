@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../App';
 import logo from '../../images/logo.png';
+import { handelSignOut } from '../Login/loginManager';
 import './Header.css'
 
 
 const Header = () => {
     const [loggedInUser,setLoggedInUser]=useContext(UserContext);
     console.log(loggedInUser.name);
+    const name= sessionStorage.getItem('userName')
      
     return (
         <div className='Header'>
@@ -16,10 +18,13 @@ const Header = () => {
                 <Link to="/shop">Shop</Link>
                 <Link to="/review">Order Review</Link> 
                 <Link to="/inventory">Manage Inventory</Link> 
-                <span className='text-success  ml-4'><small>{loggedInUser.name? 'Welcome, '+loggedInUser.name:''} </small></span> 
+                <span className='text-success  ml-4'><small>{name? 'Welcome, '+name:''} </small></span> 
                 {
-                    loggedInUser.name? 
-                    <small> <button onClick={()=>setLoggedInUser({})}>Sign Out</button> </small>
+                    name? 
+                    <small> <button onClick={()=>handelSignOut()
+                    .then(res=>setLoggedInUser(res))
+                    
+                    }>Sign Out</button> </small>
                     // <Link  to='/shop'onClick={()=>setLoggedInUser({})}>Check In</Link> 
                     :
                     <Link  to='/login'>Sign In</Link> 

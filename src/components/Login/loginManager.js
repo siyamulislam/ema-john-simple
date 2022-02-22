@@ -22,12 +22,24 @@ export const handelGoogleSignIn = async () => {
       email: email,
       url: photoURL,
     };
+    setUserToken()
+    
+    // sessionStorage.setItem('userEmail',signIndUser.email)
+    sessionStorage.setItem('userName',signIndUser.name)
+    sessionStorage.setItem('loggedInUser', JSON.stringify(signIndUser));
     return signIndUser;
   } catch (error) {
     console.log(error);
   }
 }
-
+const setUserToken=()=>{
+  getAuth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+    // Send token to your backend via HTTPS
+    sessionStorage.setItem('token',idToken)
+  }).catch(function(error) {
+    // Handle error
+  });
+}
 export const CreateUserWithEmailAndPassword = async (name, email, password) => {
   const auth = getAuth();
   try {
@@ -91,7 +103,6 @@ const UpdateUserName = name => {
 }
 
 export const handelSignOut = () => {
-
   const auth = getAuth();
   const signOutUser = {
     isSignedIn: false,
@@ -101,8 +112,12 @@ export const handelSignOut = () => {
     error: '',
     isSuccess: false,
   }
+  sessionStorage.removeItem('token')
+  sessionStorage.removeItem('userName')
+  sessionStorage.removeItem('loggedInUser')
   return signOut(auth).then(() => {
     // Sign-out successful.
+    // sessionStorage.clear()
     return signOutUser;
   }).catch((error) => {
     // An error happened.
@@ -117,15 +132,15 @@ const sendEmailVerify = () => {
       // ...
     });
 }
-export const sendResetEmailLink = (email)=> {
+export const sendResetEmailLink = (email) => {
   const auth = getAuth();
-sendPasswordResetEmail(auth, email)
-  .then(() => {
-    // Password reset email sent!
-    // ..
-    alert("Link Sent Your Email");
-  })
-  .catch((error) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      // ..
+      alert("Link Sent Your Email");
+    })
+    .catch((error) => {
       alert(error.message);
-  });
+    });
 }

@@ -14,7 +14,9 @@ import RequireAuth	  from './components/RequireAuth/RequireAuth';
 export const UserContext= createContext('');
 function App() {
   // document.title="New Title";
-  
+  // const checkLoggedInUSer=()=>{
+  // }
+  // checkLoggedInUSer()
 const [loggedInUser,setLoggedInUser]=useState({});
   return (
     <UserContext.Provider value={[loggedInUser,setLoggedInUser]}>
@@ -35,6 +37,7 @@ const [loggedInUser,setLoggedInUser]=useState({});
       </div>
     </UserContext.Provider>
   );
+  
 }
 
 export default App;

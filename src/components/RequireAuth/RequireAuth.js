@@ -8,7 +8,7 @@ const RequireAuth = ({ children, ...rest }) => {
     const location = useLocation();
     return (
         // auth === 'true'?
-        auth ? children
+        (auth || sessionStorage.getItem('token')) ? children
             : <Navigate to="/login"
                 replace state={{ path: location.pathname }}
             />
