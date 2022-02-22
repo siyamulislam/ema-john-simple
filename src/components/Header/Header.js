@@ -9,7 +9,9 @@ import './Header.css'
 const Header = () => {
     const [loggedInUser,setLoggedInUser]=useContext(UserContext);
     console.log(loggedInUser.name);
-    const name= sessionStorage.getItem('userName')
+    const user= sessionStorage.getItem('loggedInUser')
+    // console.log(user)
+    // console.log(loggedInUser)
      
     return (
         <div className='Header'>
@@ -18,9 +20,9 @@ const Header = () => {
                 <Link to="/shop">Shop</Link>
                 <Link to="/review">Order Review</Link> 
                 <Link to="/inventory">Manage Inventory</Link> 
-                <span className='text-success  ml-4'><small>{name? 'Welcome, '+name:''} </small></span> 
+                <span className='text-success  ml-4'><small>{loggedInUser.name? 'Welcome, '+loggedInUser.name:''} </small></span> 
                 {
-                    name? 
+                    loggedInUser.name? 
                     <small> <button onClick={()=>handelSignOut()
                     .then(res=>setLoggedInUser(res))
                     

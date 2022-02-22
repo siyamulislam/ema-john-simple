@@ -13,11 +13,10 @@ import RequireAuth	  from './components/RequireAuth/RequireAuth';
 
 export const UserContext= createContext('');
 function App() {
-  // document.title="New Title";
-  // const checkLoggedInUSer=()=>{
-  // }
-  // checkLoggedInUSer()
-const [loggedInUser,setLoggedInUser]=useState({});
+  // document.title="New Title"; 
+const recentUser= sessionStorage.getItem('loggedInUser')
+const parseUser= JSON.parse(recentUser)
+const [loggedInUser,setLoggedInUser]=useState(parseUser);
   return (
     <UserContext.Provider value={[loggedInUser,setLoggedInUser]}>
       <div className="App">

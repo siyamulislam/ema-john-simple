@@ -25,7 +25,7 @@ export const handelGoogleSignIn = async () => {
     setUserToken()
     
     // sessionStorage.setItem('userEmail',signIndUser.email)
-    sessionStorage.setItem('userName',signIndUser.name)
+    // sessionStorage.setItem('userName',signIndUser.name)
     sessionStorage.setItem('loggedInUser', JSON.stringify(signIndUser));
     return signIndUser;
   } catch (error) {
@@ -106,14 +106,13 @@ export const handelSignOut = () => {
   const auth = getAuth();
   const signOutUser = {
     isSignedIn: false,
-    name: '',
-    email: '',
-    url: '',
+    // name: '',
+    // email: '',
+    // url: '',
     error: '',
     isSuccess: false,
   }
   sessionStorage.removeItem('token')
-  sessionStorage.removeItem('userName')
   sessionStorage.removeItem('loggedInUser')
   return signOut(auth).then(() => {
     // Sign-out successful.
