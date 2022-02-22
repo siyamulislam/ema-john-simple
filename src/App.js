@@ -16,7 +16,7 @@ function App() {
   // document.title="New Title"; 
 const recentUser= sessionStorage.getItem('loggedInUser')
 const parseUser= JSON.parse(recentUser)
-const [loggedInUser,setLoggedInUser]=useState(parseUser);
+const [loggedInUser,setLoggedInUser]=useState(parseUser||{});
   return (
     <UserContext.Provider value={[loggedInUser,setLoggedInUser]}>
       <div className="App">
