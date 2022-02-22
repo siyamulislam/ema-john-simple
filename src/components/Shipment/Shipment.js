@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../App';
 import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
+import ProcessPayment from '../ProcessPayment/ProcessPayment';
 import './Shipment.css'
 
 const Shipment = () => {
@@ -28,7 +29,9 @@ const Shipment = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)} className='ship-form'>
+   <div className="row">
+     <div className="col-md-6">
+     <form onSubmit={handleSubmit(onSubmitForm)} className='ship-form'>
       <input {...register("name", { required: true })} placeholder='Name' defaultValue={loggedInUser.name} />
       {errors.name && <span className='error'>Name field is required</span>}
       <input {...register("email", { required: true })} placeholder='Email' defaultValue={loggedInUser.email} />
@@ -40,6 +43,13 @@ const Shipment = () => {
 
       <input type="submit" />
     </form>
+     </div>
+     <div className="col-md-6">
+<h2>Complete Your Payment</h2>
+<ProcessPayment></ProcessPayment>
+
+     </div>
+   </div>
   );
 };
 export default Shipment;
