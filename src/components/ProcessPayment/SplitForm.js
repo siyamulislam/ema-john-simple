@@ -33,7 +33,7 @@ const useOptions = () => {
   return options;
 };
 
-const SplitForm = () => {
+const SplitForm = ({handelPayment}) => {
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
@@ -55,7 +55,7 @@ const SplitForm = () => {
     });
     console.log("[PaymentMethod]", payload);
     if(payload.error){setSuccess(''); setError(payload.error.message);}
-    if(payload.paymentMethod) {setError(''); setSuccess( payload.paymentMethod.id);}
+    if(payload.paymentMethod) {setError(''); setSuccess( payload.paymentMethod.id); handelPayment(payload.paymentMethod.id,payload.paymentMethod.card.brand)}
     console.log("[PaymentMethod]", payload);
   };
 
@@ -115,8 +115,8 @@ const SplitForm = () => {
           }}
         />
       </label> <br />
-      {error? <p className="text-danger"> <small>{error}</small> </p>: 
-      <p className="text-success"> <small>Payment Completed! <span className="text-primary">{" TrxID: "+success}</span></small> </p>}
+      {error? <p className="text-danger"> <small>{error}</small> </p>: success?
+      <p className="text-success"> <small>Payment Completed! <span className="text-primary">{" TrxID: "+success}</span></small> </p>:''}
     
       <button type="submit" disabled={!stripe}>
         Pay
