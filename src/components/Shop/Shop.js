@@ -8,15 +8,17 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [search, setSearch] = useState('');
     document.title = "Shop More"
     useEffect(() => {
-        fetch('https://powerful-castle-25731.herokuapp.com/products',)
+        // fetch('https://powerful-castle-25731.herokuapp.com/products',)
+        fetch('http://localhost:5000/products?search='+search,)
             .then(res => res.json())
             .then(data => {
                 const first10 = data.slice(0, 12);
                 setProducts(first10)
             })
-    }, [])
+    }, [search])
     useEffect(() => {
         const oldSavedCart = getDatabaseCart();
         const oldProductKeys = Object.keys(oldSavedCart);
@@ -56,9 +58,14 @@ const Shop = () => {
 
         addToDatabaseCart(product.key, count);
     }
+    const handelSearch = (event) => {
+        setSearch(event.target.value)
+        console.log(search)
+    }
     return (
         <div className='twin-Container'>
             <div className="product-container">
+                <input type="text" placeholder='search product' onBlur={handelSearch} className="product-search" />
                 {
                     products.length === 0 &&
 
@@ -70,7 +77,6 @@ const Shop = () => {
                         <CircularProgress color="success" />
                         <CircularProgress color="inherit" />
                     </Stack>
-
                 }
                 {
                     products.map(product =>

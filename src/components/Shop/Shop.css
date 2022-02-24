@@ -10,3 +10,8 @@
 .cart-container{
     padding: 5px;
 }
+.product-search{
+    width: 100%;
+    align-content: center;
+    margin-left: 200px;
+}
