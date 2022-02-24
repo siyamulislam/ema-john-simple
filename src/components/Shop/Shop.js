@@ -11,8 +11,8 @@ const Shop = () => {
     const [search, setSearch] = useState('');
     document.title = "Shop More"
     useEffect(() => {
-        // fetch('https://powerful-castle-25731.herokuapp.com/products',)
-        fetch('http://localhost:5000/products?search='+search,)
+        fetch('https://powerful-castle-25731.herokuapp.com/products?search='+search,)
+        // fetch('http://localhost:5000/products?search='+search,)
             .then(res => res.json())
             .then(data => {
                 const first10 = data.slice(0, 12);
